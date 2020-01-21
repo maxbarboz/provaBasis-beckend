@@ -20,7 +20,6 @@ public class Disciplina {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ID", nullable = false)
-	@NotNull
     private Integer id;
 
 	@NotNull
@@ -39,6 +38,7 @@ public class Disciplina {
     private Integer cargaHoraria;
 
 	@Column(name = "ATIVA")
+	@NotNull
     private Integer ativa;
 
     @JoinColumn(name= "ID_PROFESSOR", referencedColumnName = "ID")

@@ -22,7 +22,7 @@ import java.util.List;
 @RequestMapping("/api/disciplinas")
 public class DisciplinaRecurso {
 
-    private static final String API_DISCIPLINAS = "/disciplinas";
+    private static final String API_DISCIPLINAS = "/api/disciplinas";
 
     private final DisciplinaServico disciplinaServico;
 
@@ -33,7 +33,7 @@ public class DisciplinaRecurso {
     @PostMapping
     public ResponseEntity<DisciplinaDTO> salvar(@RequestBody DisciplinaDTO disciplinaDTO) throws URISyntaxException {
         DisciplinaDTO result = disciplinaServico.salvar(disciplinaDTO);
-        return ResponseEntity.created(new URI(API_DISCIPLINAS + result.getId())).body(result);
+        return ResponseEntity.created(new URI(API_DISCIPLINAS + "/" + result.getId())).body(result);
     }
 
     @PutMapping
