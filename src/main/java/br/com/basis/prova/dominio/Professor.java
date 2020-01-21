@@ -34,7 +34,6 @@ public class Professor {
 
 	@Size(min = 6, max = 6)
     @Column(name = "MATRICULA", nullable = false)
-    //@UniqueElements(message = "Esse campo deve ser único")
     @NotNull
     private String matricula;
 

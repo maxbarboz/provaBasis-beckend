@@ -39,48 +39,48 @@ public class ProfessorServico {
         this.professorDetalhadoMapper = professorDetalhadoMapper;
     }
 
+    // ERRO -> DANDO PRA CADASTRAR COM DUAS OU MAIS MATRÍCULAS
     public ProfessorDTO salvar(ProfessorDTO professorDTO) {
         Professor professor = professorMapper.toEntity(professorDTO);
 
         return professorMapper.toDto(professorRepositorio.save(professor));
     }
 
-    public void excluir(String matricula, ProfessorDTO professorDTO) {
-        Professor professor = professorMapper.toEntity(professorDTO);
+    // CORRETO ->POREM NÃO EXCLUIR COM MATRICULA REPETIDA
+    public void excluir(String matricula) {
 
-        if(!verificaMatricula(professor, matricula)){
+        if(verificaMatricula(matricula)){
             throw new RegraNegocioException("Matrícula não encontrada nos dados.");
         }
-
-        /*else if(!verificaProfessorMateria(professor, matricula)){
-            throw new RegraNegocioException("O professor possui ministra uma ou mais disciplinas.");
-        }*/
 
        professorRepositorio.delete(professorRepositorio.findByMatricula(matricula));
 
     }
-    private boolean verificaMatricula(Professor professor, String matricula){
-        Professor professorMatricula = professorRepositorio.findByMatricula(professor.getMatricula());
-        return !(professorMatricula == null);
-    }
 
-    private boolean verificaProfessorMateria(Professor professor, String matricula){
-        if(professorRepositorio.findByMatricula(matricula).getMatricula() == null){
-            return true;
-        }
-        return false;
-    }
-
+    // CORRETO
     public List<ProfessorListagemDTO> consultar() {
         List <Professor> professor = professorRepositorio.findAll();
         return new ArrayList<>(professorListagemMapper.toDto(professor));
     }
+    // CORRETO
 
     public ProfessorDetalhadoDTO detalhar(Integer id) {
         Professor professor = professorRepositorio.findById(id).orElseThrow(
                 () -> new RegraNegocioException("Registro não encontrado")
         );
         return professorDetalhadoMapper.toDto(professor);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // RECURSO DO SERVICO
+    private boolean verificaMatricula(String matricula){
+        Professor professorMatricula = professorRepositorio.findByMatricula(matricula);
+
+        if(professorMatricula == null)
+            return true;
+
+        return false;
     }
 
 }

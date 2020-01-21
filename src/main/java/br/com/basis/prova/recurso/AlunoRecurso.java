@@ -45,8 +45,8 @@ public class AlunoRecurso {
     }
 
     @DeleteMapping("/{matricula}")
-    public ResponseEntity<Void> excluir(@PathVariable("matricula") String matricula, AlunoDTO alunoDTO) {
-        alunoServico.excluir(matricula, alunoDTO);
+    public ResponseEntity<Void> excluir(@PathVariable("matricula") String matricula) {
+        alunoServico.excluir(matricula);
         return ResponseEntity.status(200).build();
     }
 

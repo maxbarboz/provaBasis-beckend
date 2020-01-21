@@ -56,6 +56,7 @@ public class Aluno {
     @Column(name = "DATA_NASCIMENTO", nullable = false)
     private LocalDate dataNascimento;
 
+    @NotNull
     @ManyToMany
     @JoinTable(name = "ALUNO_DISCIPLINA",
             joinColumns = @JoinColumn(name = "ID_ALUNO", referencedColumnName = "ID"),

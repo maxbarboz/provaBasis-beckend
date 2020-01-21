@@ -21,6 +21,7 @@ public class AlunoDTO { // DTO usado para salvar e editar um aluno
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
+
     private List<DisciplinaDTO> disciplinas = new ArrayList<>();
     
 }

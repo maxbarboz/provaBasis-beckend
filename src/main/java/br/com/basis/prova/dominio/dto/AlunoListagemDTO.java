@@ -13,8 +13,6 @@ import java.time.LocalDate;
 @Setter
 public class AlunoListagemDTO { // DTO usado para consulta simples de alunos
 
-    private AlunoServico alunoServico;
-
     private Integer id;
     private String nome;
     private String matricula;
