@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
@@ -35,7 +36,5 @@ public class ProfessorListagemDTO {
 	 private LocalDate dataNascimento;
 
 	 private Integer idade;
-
-	 private List<DisciplinaDTO> disciplinas = new ArrayList<>();
 
 }

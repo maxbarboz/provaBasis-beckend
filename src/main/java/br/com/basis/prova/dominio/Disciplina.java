@@ -11,6 +11,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "DISCIPLINA")
 @Getter
@@ -44,7 +47,9 @@ public class Disciplina {
 
     @JoinColumn(name= "ID_PROFESSOR", referencedColumnName = "ID")
 	@ManyToOne( optional = false, fetch = FetchType.LAZY )
-	//@JsonBackReference
     private Professor professor;
+
+	@ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
+	private List<Aluno> alunos = new ArrayList<>();
 
 }

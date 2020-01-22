@@ -1,6 +1,7 @@
 package br.com.basis.prova.dominio.dto;
 
 import br.com.basis.prova.dominio.Professor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class DisciplinaDetalhadaDTO {
     @DateTimeFormat(pattern = "HH:mm")
     private Integer cargaHoraria;
 
-    private Professor professor;
+    @NotNull
+    private ProfessorDTO professor;
     
 }

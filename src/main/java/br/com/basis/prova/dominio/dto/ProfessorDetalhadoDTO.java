@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +27,6 @@ public class ProfessorDetalhadoDTO {
     @Size(min = 6, max = 6)
     private String matricula;
 
-    private List<DisciplinaDTO> disciplinas = new ArrayList<>();
+    private List<DisciplinaListagemDTO> disciplinas = new ArrayList<>();
 
-    
 }

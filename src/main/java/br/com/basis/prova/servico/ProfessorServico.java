@@ -54,11 +54,14 @@ public class ProfessorServico {
     public void excluir(String matricula) {
         Professor professorMatricula = professorRepositorio.findByMatricula(matricula);
 
-        if(professorMatricula == null){
+        if(professorMatricula == null)
             throw new RegraNegocioException("Matrícula não encontrada nos dados.");
-        }
+        else
+            if (!(professorComDisciplinas(matricula)))
+                throw new RegraNegocioException("O professor ministra alguma disciplina.");
 
-       professorRepositorio.delete(professorMatricula);
+        professorRepositorio.delete(professorMatricula);
+
     }
 
     // CORRETO
@@ -82,6 +85,14 @@ public class ProfessorServico {
         Professor professorMatricula = professorRepositorio.findByMatricula(professor.getMatricula());
 
         if( !(professorMatricula == null || professorMatricula.getId().equals(professor.getId())))
+            return true;
+
+        return false;
+    }
+    private boolean professorComDisciplinas(String matricula){
+        Professor professor = professorRepositorio.findByMatricula(matricula);
+
+        if( professor.getDisciplinas().size() == 0 )
             return true;
 
         return false;

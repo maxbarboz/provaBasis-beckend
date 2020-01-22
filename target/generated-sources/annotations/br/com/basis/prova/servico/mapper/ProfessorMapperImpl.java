@@ -5,19 +5,15 @@ import br.com.basis.prova.dominio.dto.ProfessorDTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Generated;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-01-22T14:09:22-0300",
+    date = "2020-01-22T16:13:24-0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.5 (JetBrains s.r.o)"
 )
 @Component
 public class ProfessorMapperImpl implements ProfessorMapper {
-
-    @Autowired
-    private DisciplinaMapper disciplinaMapper;
 
     @Override
     public Professor toEntity(ProfessorDTO dto) {
@@ -32,7 +28,6 @@ public class ProfessorMapperImpl implements ProfessorMapper {
         professor.setMatricula( dto.getMatricula() );
         professor.setArea( dto.getArea() );
         professor.setDataNascimento( dto.getDataNascimento() );
-        professor.setDisciplinas( disciplinaMapper.toEntity( dto.getDisciplinas() ) );
 
         return professor;
     }
@@ -50,7 +45,6 @@ public class ProfessorMapperImpl implements ProfessorMapper {
         professorDTO.setMatricula( entity.getMatricula() );
         professorDTO.setArea( entity.getArea() );
         professorDTO.setDataNascimento( entity.getDataNascimento() );
-        professorDTO.setDisciplinas( disciplinaMapper.toDto( entity.getDisciplinas() ) );
 
         return professorDTO;
     }

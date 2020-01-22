@@ -37,6 +37,4 @@ public class ProfessorDTO {
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 
-    private List<DisciplinaDTO> disciplinas = new ArrayList<>();
-
 }

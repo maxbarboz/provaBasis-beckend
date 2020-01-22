@@ -48,7 +48,7 @@ public class AlunoServico {
         if(alunoMatricula == null)
             throw new RegraNegocioException("Matrícula não encontrada nos dados.");
         else
-            if (!(alunoComMatricula(matricula)))
+            if (!(alunoComDisciplinas(matricula)))
                 throw new RegraNegocioException("O aluno possui disciplinas cadastradas.");
 
         alunoRepositorio.delete(alunoMatricula);
@@ -80,7 +80,7 @@ public class AlunoServico {
         return false;
     }
 
-    private boolean alunoComMatricula(String matricula){
+    private boolean alunoComDisciplinas(String matricula){
         Aluno aluno = alunoRepositorio.findByMatricula(matricula);
 
         if( aluno.getDisciplinas().size() == 0 )

@@ -50,12 +50,16 @@ public class DisciplinaServico {
                 () -> new RegraNegocioException("ID inexistente")
         );
 
-        disciplinaRepositorio.delete(disciplina);
+        if(disciplina.getAlunos().size() == 0)
+            disciplinaRepositorio.delete(disciplina);
+        else
+            throw new RegraNegocioException("A matéria possui alunos matriculados");
     }
 
     // CORRETO
     public List<DisciplinaListagemDTO> consultar() {
-        return disciplinaListagemMapper.toDto(disciplinaRepositorio.findAll());
+        List <Disciplina> disciplinas = disciplinaRepositorio.findAll();
+        return new ArrayList<>(disciplinaListagemMapper.toDto(disciplinas));
     }
 
     // CORRETO

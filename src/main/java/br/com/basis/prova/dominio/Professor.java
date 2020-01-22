@@ -48,6 +48,5 @@ public class Professor {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
-    //@JsonManagedReference
     private List<Disciplina> disciplinas = new ArrayList<>();
 }
