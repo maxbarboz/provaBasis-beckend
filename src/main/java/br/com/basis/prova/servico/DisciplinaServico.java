@@ -34,9 +34,13 @@ public class DisciplinaServico {
         this.disciplinaDetalhadaMapper = disciplinaDetalhadaMapper;
     }
 
-    // NÃO PODE CONTER DUAS DISCIPLINAS COM O MESMO NOME
+    // CORRETO
     public DisciplinaDTO salvar(DisciplinaDTO disciplinaDTO) {
         Disciplina disciplina = disciplinaMapper.toEntity(disciplinaDTO);
+
+        if(!verificaNomeDisciplina(disciplina.getNome())){
+            throw new RegraNegocioException("Já possui uma disciplina com esse nome.");
+        }
 
         return disciplinaMapper.toDto(disciplinaRepositorio.save(disciplina));
     }
@@ -61,6 +65,16 @@ public class DisciplinaServico {
                 () -> new RegraNegocioException("ID inexistente")
         );
         return disciplinaDetalhadaMapper.toDto(disciplina);
+    }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // RECURSO DO SERVICO
+
+    private boolean verificaNomeDisciplina(String nome){
+        Disciplina disciplinaNome = disciplinaRepositorio.findByNome(nome);
+
+        return (disciplinaNome == null);
     }
 
 }

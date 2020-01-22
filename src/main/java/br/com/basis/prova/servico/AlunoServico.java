@@ -33,18 +33,18 @@ public class AlunoServico {
         this.alunoDetalhadoMapper = alunoDetalhadoMapper;
     }
 
-    // MÉTODO SALVAR SALVANDO COM MATRICULA REPETIDA
+    // CORRETO
     public AlunoDTO salvar(AlunoDTO alunoDTO) {
         Aluno aluno = alunoMapper.toEntity(alunoDTO);
 
-        if(!verificarCPF(aluno)){
-            throw new RegraNegocioException("CPF já existe");
+        if(!verificarCPF(aluno) || !verificaMatricula(aluno.getMatricula())){
+            throw new RegraNegocioException("CPF ou Matrícula já existente.");
         }
 
         return alunoMapper.toDto(alunoRepositorio.save(aluno));
     }
 
-    // ERRO -> QUANTO TEM DUAS MATRICULA REPETIDA DA ERRO NA APLICAÇÃO
+    // CORRETO
     public void excluir(String matricula) {
 
         if(verificaMatricula(matricula)){

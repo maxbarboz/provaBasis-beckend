@@ -39,14 +39,18 @@ public class ProfessorServico {
         this.professorDetalhadoMapper = professorDetalhadoMapper;
     }
 
-    // ERRO -> DANDO PRA CADASTRAR COM DUAS OU MAIS MATRÍCULAS
+    // CORRETO
     public ProfessorDTO salvar(ProfessorDTO professorDTO) {
         Professor professor = professorMapper.toEntity(professorDTO);
+
+        if(!verificaMatricula(professor.getMatricula())){
+            throw new RegraNegocioException("Matrícula já existente.");
+        }
 
         return professorMapper.toDto(professorRepositorio.save(professor));
     }
 
-    // CORRETO ->POREM NÃO EXCLUIR COM MATRICULA REPETIDA
+    // CORRETO
     public void excluir(String matricula) {
 
         if(verificaMatricula(matricula)){
@@ -74,13 +78,9 @@ public class ProfessorServico {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // RECURSO DO SERVICO
-    private boolean verificaMatricula(String matricula){
+    private boolean verificaMatricula(String matricula) {
         Professor professorMatricula = professorRepositorio.findByMatricula(matricula);
 
-        if(professorMatricula == null)
-            return true;
-
-        return false;
+        return (professorMatricula == null);
     }
-
 }

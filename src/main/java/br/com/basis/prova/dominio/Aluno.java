@@ -32,11 +32,10 @@ public class Aluno {
     @NotNull
     @Size(min = 6, max = 6)
     @Column(name = "MATRICULA", nullable = false)
-    @UniqueElements(message = "Matricula deve ser única")
     private String matricula;
 
     @Column(name = "CPF", nullable = false)
-    @CPF(message = "CPF inválido")
+    @CPF
     @NotNull
     @Size(min = 11, max = 11)
     private String cpf;
