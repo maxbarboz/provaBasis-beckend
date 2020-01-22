@@ -20,10 +20,22 @@ import lombok.Setter;
 public class DisciplinaDTO {
 	
     private Integer id;
+
+    @NotNull
+    @Size(min = 4, max = 50)
     private String nome;
+
+    @NotNull
+    @Size(min = 1, max = 200)
     private String descricao;
+
+    @NotNull
+    @DateTimeFormat(pattern = "HH:mm")
     private Integer cargaHoraria;
+
+    @NotNull
     private Integer ativa;
+
     private Professor professor;
     
 }

@@ -4,18 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.UniqueElements;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,10 +32,11 @@ public class Aluno {
     @NotNull
     @Size(min = 6, max = 6)
     @Column(name = "MATRICULA", nullable = false)
+    @UniqueElements(message = "Matricula deve ser única")
     private String matricula;
 
     @Column(name = "CPF", nullable = false)
-    @CPF
+    @CPF(message = "CPF inválido")
     @NotNull
     @Size(min = 11, max = 11)
     private String cpf;
@@ -56,7 +50,6 @@ public class Aluno {
     @Column(name = "DATA_NASCIMENTO", nullable = false)
     private LocalDate dataNascimento;
 
-    @NotNull
     @ManyToMany
     @JoinTable(name = "ALUNO_DISCIPLINA",
             joinColumns = @JoinColumn(name = "ID_ALUNO", referencedColumnName = "ID"),
