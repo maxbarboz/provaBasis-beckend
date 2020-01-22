@@ -38,9 +38,8 @@ public class DisciplinaServico {
     public DisciplinaDTO salvar(DisciplinaDTO disciplinaDTO) {
         Disciplina disciplina = disciplinaMapper.toEntity(disciplinaDTO);
 
-        if(!verificaNomeDisciplina(disciplina.getNome())){
-            throw new RegraNegocioException("Já possui uma disciplina com esse nome.");
-        }
+        if (verificaNomeDisciplina(disciplina))
+            throw new RegraNegocioException("Já existe uma disciplina com esse nome nos dados.");
 
         return disciplinaMapper.toDto(disciplinaRepositorio.save(disciplina));
     }
@@ -71,10 +70,13 @@ public class DisciplinaServico {
 
     // RECURSO DO SERVICO
 
-    private boolean verificaNomeDisciplina(String nome){
-        Disciplina disciplinaNome = disciplinaRepositorio.findByNome(nome);
+    private boolean verificaNomeDisciplina(Disciplina disciplina){
+        Disciplina disciplinaNome = disciplinaRepositorio.findByNome(disciplina.getNome());
 
-        return (disciplinaNome == null);
+        if( !(disciplinaNome == null || disciplinaNome.getId().equals(disciplina.getId())))
+            return true;
+
+        return false;
     }
 
 }

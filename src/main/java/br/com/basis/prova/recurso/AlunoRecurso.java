@@ -5,6 +5,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
+import br.com.basis.prova.servico.exception.RegraNegocioException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +39,7 @@ public class AlunoRecurso {
         return ResponseEntity.created(new URI(API_ALUNOS + "/" + result.getId())).body(result);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<AlunoDTO> editar(@RequestBody AlunoDTO alunoDTO) throws URISyntaxException {
         AlunoDTO result = alunoServico.salvar(alunoDTO);
         return ResponseEntity.ok(result);

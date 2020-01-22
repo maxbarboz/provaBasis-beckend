@@ -37,21 +37,22 @@ public class AlunoServico {
     public AlunoDTO salvar(AlunoDTO alunoDTO) {
         Aluno aluno = alunoMapper.toEntity(alunoDTO);
 
-        if(!verificarCPF(aluno) || !verificaMatricula(aluno.getMatricula())){
-            throw new RegraNegocioException("CPF ou Matrícula já existente.");
-        }
+        if (verificaMatriculaECpf(aluno))
+            throw new RegraNegocioException("Já existe essa Matrícula ou Cpf nos dados.");
 
         return alunoMapper.toDto(alunoRepositorio.save(aluno));
     }
 
+
     // CORRETO
     public void excluir(String matricula) {
+        Aluno alunoMatricula = alunoRepositorio.findByMatricula(matricula);
 
-        if(verificaMatricula(matricula)){
+        if(alunoMatricula == null){
             throw new RegraNegocioException("Matrícula não encontrada nos dados.");
         }
 
-        alunoRepositorio.delete(alunoRepositorio.findByMatricula(matricula));
+        alunoRepositorio.delete(alunoMatricula);
     }
 
     // CORRETO
@@ -72,18 +73,17 @@ public class AlunoServico {
 
     // RECURSO DO SERVICO
 
-    private boolean verificarCPF(Aluno aluno) {
+    private boolean verificaMatriculaECpf(Aluno aluno){
+        Aluno alunoMatricula = alunoRepositorio.findByMatricula(aluno.getMatricula());
         Aluno alunoCpf = alunoRepositorio.findByCpf(aluno.getCpf());
 
-        if( alunoCpf == null || alunoCpf.getId().equals(aluno.getId()))
+        if( !(alunoCpf == null || alunoCpf.getId().equals(aluno.getId())) )
+            return true;
+
+        if( !(alunoMatricula == null || alunoMatricula.getId().equals(aluno.getId())))
             return true;
 
         return false;
-    }
-
-    private boolean verificaMatricula(String matricula){
-        Aluno alunoMatricula = alunoRepositorio.findByMatricula(matricula);
-        return (alunoMatricula == null);
     }
 
 }

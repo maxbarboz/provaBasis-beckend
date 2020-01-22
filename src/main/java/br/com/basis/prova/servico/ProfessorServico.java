@@ -3,6 +3,7 @@ package br.com.basis.prova.servico;
 import br.com.basis.prova.dominio.Aluno;
 import br.com.basis.prova.dominio.Disciplina;
 import br.com.basis.prova.dominio.Professor;
+import br.com.basis.prova.dominio.dto.AlunoDTO;
 import br.com.basis.prova.dominio.dto.ProfessorDTO;
 import br.com.basis.prova.dominio.dto.ProfessorDetalhadoDTO;
 import br.com.basis.prova.dominio.dto.ProfessorListagemDTO;
@@ -43,22 +44,21 @@ public class ProfessorServico {
     public ProfessorDTO salvar(ProfessorDTO professorDTO) {
         Professor professor = professorMapper.toEntity(professorDTO);
 
-        if(!verificaMatricula(professor.getMatricula())){
-            throw new RegraNegocioException("Matrícula já existente.");
-        }
+        if (verificaMatricula(professor))
+            throw new RegraNegocioException("Já existe essa Matrícula nos dados.");
 
         return professorMapper.toDto(professorRepositorio.save(professor));
     }
 
     // CORRETO
     public void excluir(String matricula) {
+        Professor professorMatricula = professorRepositorio.findByMatricula(matricula);
 
-        if(verificaMatricula(matricula)){
+        if(professorMatricula == null){
             throw new RegraNegocioException("Matrícula não encontrada nos dados.");
         }
 
-       professorRepositorio.delete(professorRepositorio.findByMatricula(matricula));
-
+       professorRepositorio.delete(professorMatricula);
     }
 
     // CORRETO
@@ -78,9 +78,13 @@ public class ProfessorServico {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // RECURSO DO SERVICO
-    private boolean verificaMatricula(String matricula) {
-        Professor professorMatricula = professorRepositorio.findByMatricula(matricula);
+    private boolean verificaMatricula(Professor professor) {
+        Professor professorMatricula = professorRepositorio.findByMatricula(professor.getMatricula());
 
-        return (professorMatricula == null);
+        if( !(professorMatricula == null || professorMatricula.getId().equals(professor.getId())))
+            return true;
+
+        return false;
     }
+
 }

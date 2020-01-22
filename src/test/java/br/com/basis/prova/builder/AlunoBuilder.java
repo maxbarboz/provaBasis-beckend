@@ -42,6 +42,7 @@ public class AlunoBuilder extends ConstrutorDeEntidade<Aluno> {
         return aluno;
     }
 
+
     @Override
     public Aluno persistir(Aluno entidade) {
         AlunoDTO alunoDTO = alunoMapper.toDto(entidade);

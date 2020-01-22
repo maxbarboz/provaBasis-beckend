@@ -37,7 +37,7 @@ public class ProfessorRecurso {
         return ResponseEntity.created(new URI(API_PROFESSORES + "/" + result.getId())).body(result);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping
     public ResponseEntity<ProfessorDTO> editar(@RequestBody ProfessorDTO professorDTO) throws URISyntaxException {
         ProfessorDTO result = professorServico.salvar(professorDTO);
         return ResponseEntity.ok(result);
