@@ -33,35 +33,33 @@ public class AlunoServico {
         this.alunoDetalhadoMapper = alunoDetalhadoMapper;
     }
 
-    // CORRETO
     public AlunoDTO salvar(AlunoDTO alunoDTO) {
         Aluno aluno = alunoMapper.toEntity(alunoDTO);
 
-        if (verificaMatriculaECpf(aluno))
+        if (!verificaMatriculaECpf(aluno))
             throw new RegraNegocioException("Já existe essa Matrícula ou Cpf nos dados.");
 
         return alunoMapper.toDto(alunoRepositorio.save(aluno));
     }
 
-
-    // CORRETO
     public void excluir(String matricula) {
         Aluno alunoMatricula = alunoRepositorio.findByMatricula(matricula);
 
-        if(alunoMatricula == null){
+        if(alunoMatricula == null)
             throw new RegraNegocioException("Matrícula não encontrada nos dados.");
-        }
+        else
+            if (!(alunoComMatricula(matricula)))
+                throw new RegraNegocioException("O aluno possui disciplinas cadastradas.");
 
         alunoRepositorio.delete(alunoMatricula);
+
     }
 
-    // CORRETO
     public List<AlunoListagemDTO> consultar() {
         List <Aluno> alunos = alunoRepositorio.findAll();
         return new ArrayList<>(alunoListagemMapper.toDto(alunos));
     }
 
-    // CORRETO
     public AlunoDetalhadoDTO detalhar(Integer id) {
         Aluno aluno = alunoRepositorio.findById(id).orElseThrow(
                 () -> new RegraNegocioException("Registro não encontrado")
@@ -71,19 +69,23 @@ public class AlunoServico {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // RECURSO DO SERVICO
-
     private boolean verificaMatriculaECpf(Aluno aluno){
         Aluno alunoMatricula = alunoRepositorio.findByMatricula(aluno.getMatricula());
         Aluno alunoCpf = alunoRepositorio.findByCpf(aluno.getCpf());
 
-        if( !(alunoCpf == null || alunoCpf.getId().equals(aluno.getId())) )
-            return true;
-
-        if( !(alunoMatricula == null || alunoMatricula.getId().equals(aluno.getId())))
+        if( alunoCpf == null || alunoCpf.getId().equals(aluno.getId()) )
+            if( alunoMatricula == null || alunoMatricula.getId().equals(aluno.getId()))
             return true;
 
         return false;
     }
 
+    private boolean alunoComMatricula(String matricula){
+        Aluno aluno = alunoRepositorio.findByMatricula(matricula);
+
+        if( aluno.getDisciplinas().size() == 0 )
+            return true;
+
+        return false;
+    }
 }

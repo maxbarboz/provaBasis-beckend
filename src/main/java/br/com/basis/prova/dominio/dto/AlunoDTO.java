@@ -31,6 +31,7 @@ public class AlunoDTO { // DTO usado para salvar e editar um aluno
     @Size(min = 6, max = 6)
     private String matricula;
 
+    @NotNull
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;
 

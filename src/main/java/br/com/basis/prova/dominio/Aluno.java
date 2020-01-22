@@ -47,6 +47,7 @@ public class Aluno {
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "DATA_NASCIMENTO", nullable = false)
+    @NotNull
     private LocalDate dataNascimento;
 
     @ManyToMany
