@@ -13,6 +13,7 @@ import br.com.basis.prova.servico.mapper.AlunoMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +60,9 @@ public class AlunoServico {
 
     public List<AlunoListagemDTO> consultar() {
         List <Aluno> alunos = alunoRepositorio.findAll();
-        return new ArrayList<>(alunoListagemMapper.toDto(alunos));
+        List<AlunoListagemDTO> alunosComIdade = alunoListagemMapper.toDto(alunos);
+        acrescentaIdade(alunosComIdade);
+        return new ArrayList<>(alunosComIdade);
     }
 
     public AlunoDetalhadoDTO detalhar(Integer id) {
@@ -93,4 +96,15 @@ public class AlunoServico {
 
         return false;
     }
+
+    private void acrescentaIdade(List<AlunoListagemDTO> alunos){
+        LocalDate localDate = LocalDate.now();
+        Integer alunoYears;
+
+        for (Integer var = 0; var < alunos.size(); var++){
+            alunoYears = alunos.get(var).getDataNascimento().getYear();
+            alunos.get(var).setIdade( localDate.getYear() - alunoYears);
+        }
+    }
+
 }

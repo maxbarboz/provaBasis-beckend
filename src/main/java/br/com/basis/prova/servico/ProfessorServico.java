@@ -1,6 +1,7 @@
 package br.com.basis.prova.servico;
 
 import br.com.basis.prova.dominio.Professor;
+import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
 import br.com.basis.prova.dominio.dto.ProfessorDTO;
 import br.com.basis.prova.dominio.dto.ProfessorDetalhadoDTO;
 import br.com.basis.prova.dominio.dto.ProfessorListagemDTO;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,7 +68,10 @@ public class ProfessorServico {
     // CORRETO
     public List<ProfessorListagemDTO> consultar() {
         List <Professor> professor = professorRepositorio.findAll();
-        return new ArrayList<>(professorListagemMapper.toDto(professor));
+        List<ProfessorListagemDTO> professorComIdade = professorListagemMapper.toDto(professor);
+        acrescentaIdade(professorComIdade);
+        return new ArrayList<>(professorComIdade);
+
     }
     // CORRETO
 
@@ -97,6 +102,15 @@ public class ProfessorServico {
         }
 
         return false;
+    }
+    private void acrescentaIdade(List<ProfessorListagemDTO> professores){
+        LocalDate localDate = LocalDate.now();
+        Integer alunoYears;
+
+        for (Integer var = 0; var < professores.size(); var++){
+            alunoYears = professores.get(var).getDataNascimento().getYear();
+            professores.get(var).setIdade( localDate.getYear() - alunoYears);
+        }
     }
 
 }

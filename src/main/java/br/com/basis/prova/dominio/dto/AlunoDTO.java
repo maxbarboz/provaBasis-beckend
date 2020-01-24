@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -32,7 +33,7 @@ public class AlunoDTO { // DTO usado para salvar e editar um aluno
 
     @NotNull
     @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private LocalDate dataNascimento;
+    private Date dataNascimento;
 
     private List<DisciplinaListagemDTO> disciplinas = new ArrayList<>();
     
