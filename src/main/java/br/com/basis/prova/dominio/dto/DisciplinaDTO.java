@@ -1,13 +1,8 @@
 package br.com.basis.prova.dominio.dto;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import br.com.basis.prova.dominio.Aluno;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.basis.prova.dominio.Professor;

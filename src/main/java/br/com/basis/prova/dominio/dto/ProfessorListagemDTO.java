@@ -1,10 +1,7 @@
 package br.com.basis.prova.dominio.dto;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;

@@ -1,9 +1,6 @@
 package br.com.basis.prova.servico;
 
-import br.com.basis.prova.dominio.Aluno;
-import br.com.basis.prova.dominio.Disciplina;
 import br.com.basis.prova.dominio.Professor;
-import br.com.basis.prova.dominio.dto.AlunoDTO;
 import br.com.basis.prova.dominio.dto.ProfessorDTO;
 import br.com.basis.prova.dominio.dto.ProfessorDetalhadoDTO;
 import br.com.basis.prova.dominio.dto.ProfessorListagemDTO;

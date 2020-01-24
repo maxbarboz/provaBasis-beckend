@@ -68,4 +68,33 @@
         </sql>
     </changeSet>
 
+    <changeSet id="5" author="maxsuel.rodrigues">
+        <sql>
+
+            CREATE TABLE AVALIACAO (
+                ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                DATA date NOT NULL,
+                ID_DISCIPLINA INT NOT NULL,
+                CONSTRAINT FK_ALAV_DISCIPLINA_ID FOREIGN KEY ( ID_DISCIPLINA ) REFERENCES DISCIPLINA ( ID )
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+        </sql>
+    </changeSet>
+
+    <changeSet id="6" author="maxsuel.rodrigues">
+        <sql>
+
+            CREATE TABLE ALUNO_AVALIACAO (
+                ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                ID_ALUNO INT NOT NULL,
+                ID_AVALIACAO INT NOT NULL,
+                NOTA DECIMAL(3,2) NOT NULL,
+                CONSTRAINT FK_ALAV_ALUNO_ID FOREIGN KEY ( ID_ALUNO ) REFERENCES ALUNO ( ID ),
+                CONSTRAINT FK_ALAV_AVALIACAO_ID FOREIGN KEY ( ID_AVALIACAO ) REFERENCES AVALIACAO ( ID )
+            ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+        </sql>
+    </changeSet>
+
+
 </databaseChangeLog>

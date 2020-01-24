@@ -1,7 +1,5 @@
 package br.com.basis.prova.dominio.dto;
 
-import br.com.basis.prova.servico.AlunoServico;
-import br.com.basis.prova.servico.mapper.AlunoListagemMapper;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
+@NoArgsConstructor
 @Getter
 @Setter
 public class AlunoListagemDTO { // DTO usado para consulta simples de alunos

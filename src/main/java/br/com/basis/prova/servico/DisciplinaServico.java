@@ -1,17 +1,14 @@
 package br.com.basis.prova.servico;
 
 import br.com.basis.prova.dominio.Disciplina;
-import br.com.basis.prova.dominio.Professor;
 import br.com.basis.prova.dominio.dto.DisciplinaDTO;
 import br.com.basis.prova.dominio.dto.DisciplinaDetalhadaDTO;
 import br.com.basis.prova.dominio.dto.DisciplinaListagemDTO;
 import br.com.basis.prova.repositorio.DisciplinaRepositorio;
-import br.com.basis.prova.repositorio.ProfessorRepositorio;
 import br.com.basis.prova.servico.exception.RegraNegocioException;
 import br.com.basis.prova.servico.mapper.DisciplinaDetalhadaMapper;
 import br.com.basis.prova.servico.mapper.DisciplinaListagemMapper;
 import br.com.basis.prova.servico.mapper.DisciplinaMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
