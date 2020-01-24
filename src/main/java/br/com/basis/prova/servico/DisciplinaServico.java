@@ -5,6 +5,7 @@ import br.com.basis.prova.dominio.dto.DisciplinaDTO;
 import br.com.basis.prova.dominio.dto.DisciplinaDetalhadaDTO;
 import br.com.basis.prova.dominio.dto.DisciplinaListagemDTO;
 import br.com.basis.prova.repositorio.DisciplinaRepositorio;
+import br.com.basis.prova.servico.exception.RegistroNaoEncontradoException;
 import br.com.basis.prova.servico.exception.RegraNegocioException;
 import br.com.basis.prova.servico.mapper.DisciplinaDetalhadaMapper;
 import br.com.basis.prova.servico.mapper.DisciplinaListagemMapper;
@@ -35,8 +36,9 @@ public class DisciplinaServico {
     public DisciplinaDTO salvar(DisciplinaDTO disciplinaDTO) {
         Disciplina disciplina = disciplinaMapper.toEntity(disciplinaDTO);
 
-        if (verificaNomeDisciplina(disciplina))
+        if (verificaNomeDisciplina(disciplina)) {
             throw new RegraNegocioException("Já existe uma disciplina com esse nome nos dados.");
+        }
 
         return disciplinaMapper.toDto(disciplinaRepositorio.save(disciplina));
     }
@@ -44,13 +46,14 @@ public class DisciplinaServico {
     // CORRETO
     public void excluir(Integer id) {
         Disciplina disciplina = disciplinaRepositorio.findById(id).orElseThrow(
-                () -> new RegraNegocioException("ID inexistente")
+                () -> new RegistroNaoEncontradoException("ID inexistente")
         );
 
-        if(disciplina.getAlunos().size() == 0)
+        if(disciplina.getAlunos().size() == 0) {
             disciplinaRepositorio.delete(disciplina);
-        else
+        }else {
             throw new RegraNegocioException("A matéria possui alunos matriculados");
+        }
     }
 
     // CORRETO
@@ -62,7 +65,7 @@ public class DisciplinaServico {
     // CORRETO
     public DisciplinaDetalhadaDTO detalhar(Integer id) {
         Disciplina disciplina = disciplinaRepositorio.findById(id).orElseThrow(
-                () -> new RegraNegocioException("ID inexistente")
+                () -> new RegistroNaoEncontradoException("ID inexistente")
         );
         return disciplinaDetalhadaMapper.toDto(disciplina);
     }
@@ -74,8 +77,9 @@ public class DisciplinaServico {
     private boolean verificaNomeDisciplina(Disciplina disciplina){
         Disciplina disciplinaNome = disciplinaRepositorio.findByNome(disciplina.getNome());
 
-        if( !(disciplinaNome == null || disciplinaNome.getId().equals(disciplina.getId())))
+        if( !(disciplinaNome == null || disciplinaNome.getId().equals(disciplina.getId()))) {
             return true;
+        }
 
         return false;
     }

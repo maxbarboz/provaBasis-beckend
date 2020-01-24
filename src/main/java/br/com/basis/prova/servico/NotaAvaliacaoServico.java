@@ -5,10 +5,14 @@ import br.com.basis.prova.dominio.dto.*;
 import br.com.basis.prova.repositorio.NotaAvaliacaoRepositorio;
 import br.com.basis.prova.servico.exception.RegistroNaoEncontradoException;
 import br.com.basis.prova.servico.mapper.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
+@Transactional
 public class NotaAvaliacaoServico {
 
     private NotaAvaliacaoMapper notaAvaliacaoMapper;

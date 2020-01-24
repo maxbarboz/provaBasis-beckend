@@ -13,6 +13,9 @@ import java.time.LocalDate;
 public class AvaliacaoListagemDTO {
 
     @NotNull
+    private Integer id;
+
+    @NotNull
     private LocalDate data;
 
     @NotNull

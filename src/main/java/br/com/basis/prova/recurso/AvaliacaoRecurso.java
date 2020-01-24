@@ -14,7 +14,8 @@ import java.util.List;
 public class AvaliacaoRecurso {
 
     private static final String API_AVALIACOES = "/api/avaliacoes";
-    private AvaliacaoServico avaliacaoServico;
+
+    private final AvaliacaoServico avaliacaoServico;
 
     public AvaliacaoRecurso(AvaliacaoServico avaliacaoServico){
         this.avaliacaoServico = avaliacaoServico;

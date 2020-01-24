@@ -51,7 +51,7 @@ public class AvaliacaoServico {
 
     public AvaliacaoDetalhadoDTO detalhar(Integer id) {
         Avaliacao avaliacao = avaliacaoRepositorio.findById(id).orElseThrow(
-                () -> new RegraNegocioException("ID inexistente")
+                () -> new RegistroNaoEncontradoException("ID inexistente")
         );
         return avaliacaoDetalhadoMapper.toDto(avaliacao);
     }

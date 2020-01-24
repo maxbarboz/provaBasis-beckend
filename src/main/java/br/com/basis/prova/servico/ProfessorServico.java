@@ -6,6 +6,7 @@ import br.com.basis.prova.dominio.dto.ProfessorDetalhadoDTO;
 import br.com.basis.prova.dominio.dto.ProfessorListagemDTO;
 import br.com.basis.prova.repositorio.DisciplinaRepositorio;
 import br.com.basis.prova.repositorio.ProfessorRepositorio;
+import br.com.basis.prova.servico.exception.RegistroNaoEncontradoException;
 import br.com.basis.prova.servico.exception.RegraNegocioException;
 import br.com.basis.prova.servico.mapper.ProfessorDetalhadoMapper;
 import br.com.basis.prova.servico.mapper.ProfessorListagemMapper;
@@ -16,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -41,8 +41,9 @@ public class ProfessorServico {
     public ProfessorDTO salvar(ProfessorDTO professorDTO) {
         Professor professor = professorMapper.toEntity(professorDTO);
 
-        if (verificaMatricula(professor))
+        if (verificaMatricula(professor)) {
             throw new RegraNegocioException("Já existe essa Matrícula nos dados.");
+        }
 
         return professorMapper.toDto(professorRepositorio.save(professor));
     }
@@ -51,12 +52,13 @@ public class ProfessorServico {
     public void excluir(String matricula) {
         Professor professorMatricula = professorRepositorio.findByMatricula(matricula);
 
-        if(professorMatricula == null)
-            throw new RegraNegocioException("Matrícula não encontrada nos dados.");
-        else
-            if (!(professorComDisciplinas(matricula)))
+        if(professorMatricula == null) {
+            throw new RegistroNaoEncontradoException("Matrícula não encontrada nos dados.");
+        }else {
+            if (!(professorComDisciplinas(matricula))) {
                 throw new RegraNegocioException("O professor ministra alguma disciplina.");
-
+            }
+        }
         professorRepositorio.delete(professorMatricula);
 
     }
@@ -70,7 +72,7 @@ public class ProfessorServico {
 
     public ProfessorDetalhadoDTO detalhar(Integer id) {
         Professor professor = professorRepositorio.findById(id).orElseThrow(
-                () -> new RegraNegocioException("Registro não encontrado")
+                () -> new RegistroNaoEncontradoException("Registro não encontrado")
         );
         return professorDetalhadoMapper.toDto(professor);
     }
@@ -81,16 +83,18 @@ public class ProfessorServico {
     private boolean verificaMatricula(Professor professor) {
         Professor professorMatricula = professorRepositorio.findByMatricula(professor.getMatricula());
 
-        if( !(professorMatricula == null || professorMatricula.getId().equals(professor.getId())))
+        if( !(professorMatricula == null || professorMatricula.getId().equals(professor.getId()))) {
             return true;
+        }
 
         return false;
     }
     private boolean professorComDisciplinas(String matricula){
         Professor professor = professorRepositorio.findByMatricula(matricula);
 
-        if( professor.getDisciplinas().size() == 0 )
+        if( professor.getDisciplinas().size() == 0 ) {
             return true;
+        }
 
         return false;
     }
