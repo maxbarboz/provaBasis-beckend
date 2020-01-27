@@ -27,6 +27,13 @@ public class NotaAvaliacaoServico {
 
     public NotaAvaliacaoDTO salvar(NotaAvaliacaoDTO notaAvaliacaoDTO){
         NotaAvaliacao notaAvaliacao = notaAvaliacaoMapper.toEntity(notaAvaliacaoDTO);
+
+        /*
+        if (!verificaNotaAluno(notaAvaliacao)) {
+            throw new RegraNegocioException("Já existe essa Matrícula ou Cpf nos dados.");
+        }
+        */
+
         return notaAvaliacaoMapper.toDto(notaAvaliacaoRepositorio.save(notaAvaliacao));
     }
 
@@ -42,4 +49,18 @@ public class NotaAvaliacaoServico {
         return new ArrayList<>(notaAvaliacaoListagemMapper.toDto(notaAvaliacaos));
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////
+
+    /*
+    private void verificaNotaAluno(NotaAvaliacao notaAvaliacao){
+        NotaAvaliacao idAluno = NotaAvaliacaoRepositorio
+        Aluno alunoCpf = alunoRepositorio.findByCpf(aluno.getCpf());
+
+        if( alunoCpf == null || alunoCpf.getId().equals(aluno.getId()) ) {
+            if (alunoMatricula == null || alunoMatricula.getId().equals(aluno.getId())) {
+                return true;
+            }
+        }
+    }
+    */
 }

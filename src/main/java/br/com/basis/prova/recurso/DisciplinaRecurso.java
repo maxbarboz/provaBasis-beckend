@@ -33,7 +33,8 @@ public class DisciplinaRecurso {
     @PostMapping
     public ResponseEntity<DisciplinaDTO> salvar(@RequestBody DisciplinaDTO disciplinaDTO) throws URISyntaxException {
         DisciplinaDTO result = disciplinaServico.salvar(disciplinaDTO);
-        return ResponseEntity.created(new URI(API_DISCIPLINAS + "/" + result.getId())).body(result);
+        return ResponseEntity.ok(result);
+        //return ResponseEntity.created(new URI(API_DISCIPLINAS + "/" + result.getId())).body(result);
     }
 
     @PutMapping

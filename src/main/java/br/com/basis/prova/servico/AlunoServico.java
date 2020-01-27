@@ -35,27 +35,14 @@ public class AlunoServico {
 
     public AlunoDTO salvar(AlunoDTO alunoDTO) {
         Aluno aluno = alunoMapper.toEntity(alunoDTO);
-
-        if (!verificaMatriculaECpf(aluno)) {
-            throw new RegraNegocioException("Já existe essa Matrícula ou Cpf nos dados.");
-        }
-
+        verificaCpf(aluno);
+        verificaMatricula(aluno);
         return alunoMapper.toDto(alunoRepositorio.save(aluno));
     }
 
     public void excluir(String matricula) {
-        Aluno alunoMatricula = alunoRepositorio.findByMatricula(matricula);
-
-        if(alunoMatricula == null) {
-            throw new RegistroNaoEncontradoException("Matrícula não encontrada nos dados.");
-        }else {
-            if (!(alunoComDisciplinas(matricula))) {
-                throw new RegraNegocioException("O aluno possui disciplinas cadastradas.");
-            }
-        }
-
+        Aluno alunoMatricula = alunoComDisciplinas(matricula);
         alunoRepositorio.delete(alunoMatricula);
-
     }
 
     public List<AlunoListagemDTO> consultar() {
@@ -74,27 +61,37 @@ public class AlunoServico {
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    private boolean verificaMatriculaECpf(Aluno aluno){
+    private void verificaMatricula(Aluno aluno) {
         Aluno alunoMatricula = alunoRepositorio.findByMatricula(aluno.getMatricula());
-        Aluno alunoCpf = alunoRepositorio.findByCpf(aluno.getCpf());
 
-        if( alunoCpf == null || alunoCpf.getId().equals(aluno.getId()) ) {
-            if (alunoMatricula == null || alunoMatricula.getId().equals(aluno.getId())) {
-                return true;
+        if(!(alunoMatricula == null)){
+            if(!(alunoMatricula.getId().equals(aluno.getId())) ) {
+                throw new RegraNegocioException("Matrícula já encontrada nos dados");
             }
         }
-
-        return false;
     }
 
-    private boolean alunoComDisciplinas(String matricula){
-        Aluno aluno = alunoRepositorio.findByMatricula(matricula);
+    private void verificaCpf(Aluno aluno){
+        Aluno alunoCpf = alunoRepositorio.findByCpf(aluno.getCpf());
 
-        if( aluno.getDisciplinas().size() == 0 ) {
-            return true;
+        if(!(alunoCpf == null)){
+            if(!(alunoCpf.getId().equals(aluno.getId())) ) {
+                throw new RegraNegocioException("Cpf já encontrado nos dados");
+            }
+        }
+    }
+
+    private Aluno alunoComDisciplinas(String matricula){
+
+        Aluno alunoMatricula = alunoRepositorio.findByMatricula(matricula);
+
+        if(alunoMatricula == null) {
+            throw new RegistroNaoEncontradoException("Matrícula não encontrada nos dados.");
+        }else if(!(alunoMatricula.getDisciplinas().size() == 0)){
+            throw new RegraNegocioException("O aluno possui disciplinas cadastradas.");
         }
 
-        return false;
+        return alunoMatricula;
     }
 
     private void acrescentaIdade(List<AlunoListagemDTO> alunos){

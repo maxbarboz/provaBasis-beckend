@@ -33,6 +33,6 @@ public class DisciplinaDTO {
     private Integer ativa;
 
     @NotNull( message = "É necessario ter um professor vinculado a disciplina.")
-    private Professor professor;
+    private ProfessorDTO professor;
 
 }

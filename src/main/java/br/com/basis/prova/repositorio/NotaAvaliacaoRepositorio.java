@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NotaAvaliacaoRepositorio extends JpaRepository<NotaAvaliacao, Integer>, JpaSpecificationExecutor<NotaAvaliacao> {
+
 }

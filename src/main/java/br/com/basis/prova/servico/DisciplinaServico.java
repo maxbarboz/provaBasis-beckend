@@ -32,37 +32,34 @@ public class DisciplinaServico {
         this.disciplinaDetalhadaMapper = disciplinaDetalhadaMapper;
     }
 
-    // CORRETO
     public DisciplinaDTO salvar(DisciplinaDTO disciplinaDTO) {
         Disciplina disciplina = disciplinaMapper.toEntity(disciplinaDTO);
 
-        if (verificaNomeDisciplina(disciplina)) {
-            throw new RegraNegocioException("Já existe uma disciplina com esse nome nos dados.");
+        if(disciplina.getProfessor() == null){
+            throw new RegraNegocioException("Disciplina precisa ter um professor");
         }
 
+        verificaNomeDisciplina(disciplina);
         return disciplinaMapper.toDto(disciplinaRepositorio.save(disciplina));
     }
 
-    // CORRETO
     public void excluir(Integer id) {
         Disciplina disciplina = disciplinaRepositorio.findById(id).orElseThrow(
                 () -> new RegistroNaoEncontradoException("ID inexistente")
         );
 
-        if(disciplina.getAlunos().size() == 0) {
-            disciplinaRepositorio.delete(disciplina);
-        }else {
+        if(!(disciplina.getAlunos().size() == 0)) {
             throw new RegraNegocioException("A matéria possui alunos matriculados");
         }
+
+        disciplinaRepositorio.delete(disciplina);
     }
 
-    // CORRETO
     public List<DisciplinaListagemDTO> consultar() {
         List <Disciplina> disciplinas = disciplinaRepositorio.findAll();
         return new ArrayList<>(disciplinaListagemMapper.toDto(disciplinas));
     }
 
-    // CORRETO
     public DisciplinaDetalhadaDTO detalhar(Integer id) {
         Disciplina disciplina = disciplinaRepositorio.findById(id).orElseThrow(
                 () -> new RegistroNaoEncontradoException("ID inexistente")
@@ -72,16 +69,12 @@ public class DisciplinaServico {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // RECURSO DO SERVICO
-
-    private boolean verificaNomeDisciplina(Disciplina disciplina){
+    private void verificaNomeDisciplina(Disciplina disciplina){
         Disciplina disciplinaNome = disciplinaRepositorio.findByNome(disciplina.getNome());
 
         if( !(disciplinaNome == null || disciplinaNome.getId().equals(disciplina.getId()))) {
-            return true;
+            throw new RegraNegocioException("Já existe uma disciplina com esse nome nos dados.");
         }
-
-        return false;
     }
 
 }

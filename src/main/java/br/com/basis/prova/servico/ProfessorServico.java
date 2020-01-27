@@ -1,7 +1,6 @@
 package br.com.basis.prova.servico;
 
 import br.com.basis.prova.dominio.Professor;
-import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
 import br.com.basis.prova.dominio.dto.ProfessorDTO;
 import br.com.basis.prova.dominio.dto.ProfessorDetalhadoDTO;
 import br.com.basis.prova.dominio.dto.ProfessorListagemDTO;
@@ -39,33 +38,17 @@ public class ProfessorServico {
         this.professorDetalhadoMapper = professorDetalhadoMapper;
     }
 
-    // CORRETO
     public ProfessorDTO salvar(ProfessorDTO professorDTO) {
         Professor professor = professorMapper.toEntity(professorDTO);
-
-        if (verificaMatricula(professor)) {
-            throw new RegraNegocioException("Já existe essa Matrícula nos dados.");
-        }
-
+        verificaMatricula(professor);
         return professorMapper.toDto(professorRepositorio.save(professor));
     }
 
-    // CORRETO
     public void excluir(String matricula) {
-        Professor professorMatricula = professorRepositorio.findByMatricula(matricula);
-
-        if(professorMatricula == null) {
-            throw new RegistroNaoEncontradoException("Matrícula não encontrada nos dados.");
-        }else {
-            if (!(professorComDisciplinas(matricula))) {
-                throw new RegraNegocioException("O professor ministra alguma disciplina.");
-            }
-        }
+        Professor professorMatricula = professorComDisciplinas(matricula);
         professorRepositorio.delete(professorMatricula);
-
     }
 
-    // CORRETO
     public List<ProfessorListagemDTO> consultar() {
         List <Professor> professor = professorRepositorio.findAll();
         List<ProfessorListagemDTO> professorComIdade = professorListagemMapper.toDto(professor);
@@ -73,7 +56,6 @@ public class ProfessorServico {
         return new ArrayList<>(professorComIdade);
 
     }
-    // CORRETO
 
     public ProfessorDetalhadoDTO detalhar(Integer id) {
         Professor professor = professorRepositorio.findById(id).orElseThrow(
@@ -84,25 +66,30 @@ public class ProfessorServico {
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // RECURSO DO SERVICO
-    private boolean verificaMatricula(Professor professor) {
+    private void verificaMatricula(Professor professor) {
         Professor professorMatricula = professorRepositorio.findByMatricula(professor.getMatricula());
 
-        if( !(professorMatricula == null || professorMatricula.getId().equals(professor.getId()))) {
-            return true;
+        if(!(professorMatricula == null)){
+            if(!(professorMatricula.getId().equals(professor.getId())) ) {
+                throw new RegraNegocioException("Matrícula já encontrada nos dados");
+            }
+        }
+    }
+
+    private Professor professorComDisciplinas(String matricula){
+        Professor professorMatricula = professorRepositorio.findByMatricula(matricula);
+
+        if(professorMatricula == null) {
+            throw new RegistroNaoEncontradoException("Matrícula não encontrada nos dados.");
+        }else {
+            if( !(professorMatricula.getDisciplinas().size() == 0) ) {
+                throw new RegraNegocioException("O professor ministra alguma disciplina.");
+            }
         }
 
-        return false;
+        return professorMatricula;
     }
-    private boolean professorComDisciplinas(String matricula){
-        Professor professor = professorRepositorio.findByMatricula(matricula);
 
-        if( professor.getDisciplinas().size() == 0 ) {
-            return true;
-        }
-
-        return false;
-    }
     private void acrescentaIdade(List<ProfessorListagemDTO> professores){
         LocalDate localDate = LocalDate.now();
         Integer alunoYears;
