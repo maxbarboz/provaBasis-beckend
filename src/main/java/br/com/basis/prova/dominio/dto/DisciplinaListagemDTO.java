@@ -24,6 +24,9 @@ public class DisciplinaListagemDTO {
     private Integer cargaHoraria;
 
     @NotNull
+    private Integer ativa;
+
+    @NotNull
     @Size(min = 1, max = 200)
     private String descricao;
 

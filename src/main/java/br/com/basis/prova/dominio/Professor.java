@@ -45,6 +45,6 @@ public class Professor {
     @Column(name = "DATA_NASCIMENTO", nullable = false)
     private LocalDate dataNascimento;
 
-    @OneToMany(mappedBy = "professor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "professor", orphanRemoval = true)
     private List<Disciplina> disciplinas = new ArrayList<>();
 }

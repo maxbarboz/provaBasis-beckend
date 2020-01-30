@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-01-30T11:48:15-0300",
+    date = "2020-01-30T12:52:56-0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.5 (JetBrains s.r.o)"
 )
 @Component
@@ -27,6 +27,7 @@ public class DisciplinaListagemMapperImpl implements DisciplinaListagemMapper {
         disciplina.setNome( dto.getNome() );
         disciplina.setDescricao( dto.getDescricao() );
         disciplina.setCargaHoraria( dto.getCargaHoraria() );
+        disciplina.setAtiva( dto.getAtiva() );
 
         return disciplina;
     }
@@ -42,6 +43,7 @@ public class DisciplinaListagemMapperImpl implements DisciplinaListagemMapper {
         disciplinaListagemDTO.setId( entity.getId() );
         disciplinaListagemDTO.setNome( entity.getNome() );
         disciplinaListagemDTO.setCargaHoraria( entity.getCargaHoraria() );
+        disciplinaListagemDTO.setAtiva( entity.getAtiva() );
         disciplinaListagemDTO.setDescricao( entity.getDescricao() );
 
         return disciplinaListagemDTO;
