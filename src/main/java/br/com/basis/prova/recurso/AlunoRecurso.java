@@ -5,6 +5,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
+import br.com.basis.prova.servico.exception.RegraNegocioException;
+import br.com.basis.prova.servico.exception.ValidacaoException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +31,13 @@ public class AlunoRecurso {
 
     @PostMapping
     public ResponseEntity<AlunoDTO> salvar(@Valid @RequestBody AlunoDTO alunoDTO) throws URISyntaxException {
-        AlunoDTO result = alunoServico.salvar(alunoDTO);
-        return ResponseEntity.ok(result);
+
+        try{
+            AlunoDTO result = alunoServico.salvar(alunoDTO);
+            return ResponseEntity.ok(result);
+        }catch (Exception ex) {
+            throw new ValidacaoException("CPF inválido");
+        }
     }
 
     @PutMapping
