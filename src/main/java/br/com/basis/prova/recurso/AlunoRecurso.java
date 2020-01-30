@@ -12,6 +12,8 @@ import br.com.basis.prova.dominio.dto.AlunoDTO;
 import br.com.basis.prova.dominio.dto.AlunoDetalhadoDTO;
 import br.com.basis.prova.servico.AlunoServico;
 
+import javax.validation.Valid;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/alunos")
@@ -26,7 +28,7 @@ public class AlunoRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<AlunoDTO> salvar(@RequestBody AlunoDTO alunoDTO) throws URISyntaxException {
+    public ResponseEntity<AlunoDTO> salvar(@Valid @RequestBody AlunoDTO alunoDTO) throws URISyntaxException {
         AlunoDTO result = alunoServico.salvar(alunoDTO);
         return ResponseEntity.ok(result);
     }

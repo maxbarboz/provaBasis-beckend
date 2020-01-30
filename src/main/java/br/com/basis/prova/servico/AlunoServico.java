@@ -53,6 +53,7 @@ public class AlunoServico {
     }
 
     public AlunoDetalhadoDTO detalhar(Integer id) {
+
         Aluno aluno = alunoRepositorio.findById(id).orElseThrow(
                 () -> new RegistroNaoEncontradoException("Registro não encontrado")
         );

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-01-27T11:11:59-0300",
+    date = "2020-01-30T08:43:49-0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.5 (JetBrains s.r.o)"
 )
 @Component
@@ -33,9 +33,7 @@ public class AlunoMapperImpl implements AlunoMapper {
         aluno.setMatricula( dto.getMatricula() );
         aluno.setCpf( dto.getCpf() );
         aluno.setNome( dto.getNome() );
-        if ( dto.getDataNascimento() != null ) {
-            aluno.setDataNascimento( java.time.LocalDateTime.ofInstant( dto.getDataNascimento().toInstant(), java.time.ZoneOffset.UTC ).toLocalDate() );
-        }
+        aluno.setDataNascimento( dto.getDataNascimento() );
         aluno.setDisciplinas( disciplinaListagemDTOListToDisciplinaList( dto.getDisciplinas() ) );
 
         return aluno;
@@ -53,9 +51,7 @@ public class AlunoMapperImpl implements AlunoMapper {
         alunoDTO.setNome( entity.getNome() );
         alunoDTO.setCpf( entity.getCpf() );
         alunoDTO.setMatricula( entity.getMatricula() );
-        if ( entity.getDataNascimento() != null ) {
-            alunoDTO.setDataNascimento( java.util.Date.from( entity.getDataNascimento().atStartOfDay( java.time.ZoneOffset.UTC ).toInstant() ) );
-        }
+        alunoDTO.setDataNascimento( entity.getDataNascimento() );
         alunoDTO.setDisciplinas( disciplinaListToDisciplinaListagemDTOList( entity.getDisciplinas() ) );
 
         return alunoDTO;

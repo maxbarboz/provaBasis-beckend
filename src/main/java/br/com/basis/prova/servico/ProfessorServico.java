@@ -58,6 +58,7 @@ public class ProfessorServico {
     }
 
     public ProfessorDetalhadoDTO detalhar(Integer id) {
+
         Professor professor = professorRepositorio.findById(id).orElseThrow(
                 () -> new RegistroNaoEncontradoException("Registro não encontrado")
         );
