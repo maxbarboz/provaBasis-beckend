@@ -7,6 +7,7 @@ import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
 import br.com.basis.prova.repositorio.AlunoRepositorio;
 import br.com.basis.prova.servico.exception.RegistroNaoEncontradoException;
 import br.com.basis.prova.servico.exception.RegraNegocioException;
+import br.com.basis.prova.servico.exception.ValidacaoException;
 import br.com.basis.prova.servico.mapper.AlunoDetalhadoMapper;
 import br.com.basis.prova.servico.mapper.AlunoListagemMapper;
 import br.com.basis.prova.servico.mapper.AlunoMapper;
@@ -37,7 +38,13 @@ public class AlunoServico {
         Aluno aluno = alunoMapper.toEntity(alunoDTO);
         verificaCpf(aluno);
         verificaMatricula(aluno);
-        return alunoMapper.toDto(alunoRepositorio.save(aluno));
+
+        try{
+            return alunoMapper.toDto(alunoRepositorio.save(aluno));
+        }catch (Exception ex){
+            throw new ValidacaoException("CPF inválido");
+        }
+
     }
 
     public void excluir(String matricula) {

@@ -31,13 +31,8 @@ public class AlunoRecurso {
 
     @PostMapping
     public ResponseEntity<AlunoDTO> salvar(@Valid @RequestBody AlunoDTO alunoDTO) throws URISyntaxException {
-
-        try{
-            AlunoDTO result = alunoServico.salvar(alunoDTO);
-            return ResponseEntity.ok(result);
-        }catch (Exception ex) {
-            throw new ValidacaoException("CPF inválido");
-        }
+        AlunoDTO result = alunoServico.salvar(alunoDTO);
+        return ResponseEntity.ok(result);
     }
 
     @PutMapping
