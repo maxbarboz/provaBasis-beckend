@@ -15,6 +15,7 @@ import br.com.basis.prova.dominio.dto.AlunoDetalhadoDTO;
 import br.com.basis.prova.servico.AlunoServico;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
