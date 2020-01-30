@@ -1,12 +1,9 @@
 package br.com.basis.prova.recurso;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
 import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
-import br.com.basis.prova.servico.exception.RegraNegocioException;
-import br.com.basis.prova.servico.exception.ValidacaoException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +12,6 @@ import br.com.basis.prova.dominio.dto.AlunoDetalhadoDTO;
 import br.com.basis.prova.servico.AlunoServico;
 
 import javax.validation.Valid;
-import javax.validation.ValidationException;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -37,7 +33,7 @@ public class AlunoRecurso {
     }
 
     @PutMapping
-    public ResponseEntity<AlunoDTO> editar(@RequestBody AlunoDTO alunoDTO) throws URISyntaxException {
+    public ResponseEntity<AlunoDTO> editar(@Valid @RequestBody AlunoDTO alunoDTO) throws URISyntaxException {
         AlunoDTO result = alunoServico.salvar(alunoDTO);
         return ResponseEntity.ok(result);
     }

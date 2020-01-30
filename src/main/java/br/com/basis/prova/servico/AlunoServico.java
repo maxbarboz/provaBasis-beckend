@@ -7,17 +7,12 @@ import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
 import br.com.basis.prova.repositorio.AlunoRepositorio;
 import br.com.basis.prova.servico.exception.RegistroNaoEncontradoException;
 import br.com.basis.prova.servico.exception.RegraNegocioException;
-import br.com.basis.prova.servico.exception.ValidacaoException;
 import br.com.basis.prova.servico.mapper.AlunoDetalhadoMapper;
 import br.com.basis.prova.servico.mapper.AlunoListagemMapper;
 import br.com.basis.prova.servico.mapper.AlunoMapper;
-import liquibase.exception.DatabaseException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.RollbackException;
-import javax.validation.ValidationException;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,12 +38,7 @@ public class AlunoServico {
         verificaCpf(aluno);
         verificaMatricula(aluno);
 
-        try{
-            return alunoMapper.toDto(alunoRepositorio.save(aluno));
-        }catch (Exception ex){
-            throw new ValidacaoException("Cpf inválido");
-        }
-
+        return alunoMapper.toDto(alunoRepositorio.save(aluno));
     }
 
     public void excluir(String matricula) {

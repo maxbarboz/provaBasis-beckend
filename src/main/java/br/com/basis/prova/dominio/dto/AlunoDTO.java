@@ -3,13 +3,13 @@ package br.com.basis.prova.dominio.dto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -25,6 +25,7 @@ public class AlunoDTO { // DTO usado para salvar e editar um aluno
 
     @NotNull
     @Size(min = 11, max = 11)
+    @CPF( message = "Cpf inválido" )
     private String cpf;
 
     @NotNull
