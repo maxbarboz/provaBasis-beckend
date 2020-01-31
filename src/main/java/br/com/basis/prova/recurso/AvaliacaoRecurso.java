@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/avaliacoes")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AvaliacaoRecurso {
 
     private static final String API_AVALIACOES = "/api/avaliacoes";

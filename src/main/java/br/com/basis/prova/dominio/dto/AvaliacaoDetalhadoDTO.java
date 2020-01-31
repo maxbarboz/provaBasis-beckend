@@ -15,6 +15,12 @@ import java.util.List;
 public class AvaliacaoDetalhadoDTO {
 
     @NotNull
+    private Integer id;
+
+    @NotNull
+    private String nome;
+
+    @NotNull
     private LocalDate data;
 
     @ManyToMany

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-01-30T13:42:16-0300",
+    date = "2020-01-30T22:28:09-0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.5 (JetBrains s.r.o)"
 )
 @Component
@@ -25,6 +25,8 @@ public class AvaliacaoDetalhadoMapperImpl implements AvaliacaoDetalhadoMapper {
 
         Avaliacao avaliacao = new Avaliacao();
 
+        avaliacao.setId( dto.getId() );
+        avaliacao.setNome( dto.getNome() );
         avaliacao.setData( dto.getData() );
         avaliacao.setNotaAvaliacao( notaAvaliacaoDTOListToNotaAvaliacaoList( dto.getNotaAvaliacao() ) );
 
@@ -39,6 +41,8 @@ public class AvaliacaoDetalhadoMapperImpl implements AvaliacaoDetalhadoMapper {
 
         AvaliacaoDetalhadoDTO avaliacaoDetalhadoDTO = new AvaliacaoDetalhadoDTO();
 
+        avaliacaoDetalhadoDTO.setId( entity.getId() );
+        avaliacaoDetalhadoDTO.setNome( entity.getNome() );
         avaliacaoDetalhadoDTO.setData( entity.getData() );
         avaliacaoDetalhadoDTO.setNotaAvaliacao( notaAvaliacaoListToNotaAvaliacaoDTOList( entity.getNotaAvaliacao() ) );
 

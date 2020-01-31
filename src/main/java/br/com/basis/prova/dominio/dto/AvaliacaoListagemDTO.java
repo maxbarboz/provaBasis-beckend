@@ -16,9 +16,14 @@ public class AvaliacaoListagemDTO {
     private Integer id;
 
     @NotNull
+    private String nome;
+
+    @NotNull
     private LocalDate data;
 
     @NotNull
     private Integer idDisciplina;
 
+    @NotNull
+    private String nomeDisciplina;
 }

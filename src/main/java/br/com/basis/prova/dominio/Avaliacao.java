@@ -23,6 +23,10 @@ public class Avaliacao {
     @Column(name = "ID", nullable = false)
     private Integer id;
 
+    @NotNull
+    @Column(name= "NOME", nullable = false)
+    private String nome;
+
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "DATA", nullable = false)
     @NotNull

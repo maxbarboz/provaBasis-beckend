@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-01-30T13:42:16-0300",
+    date = "2020-01-30T22:28:09-0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.5 (JetBrains s.r.o)"
 )
 @Component
@@ -54,6 +54,7 @@ public class AvaliacaoListagemMapperImpl implements AvaliacaoListagemMapper {
 
         avaliacao.setDisciplina( avaliacaoListagemDTOToDisciplina( avaliacaoListagemDTO ) );
         avaliacao.setId( avaliacaoListagemDTO.getId() );
+        avaliacao.setNome( avaliacaoListagemDTO.getNome() );
         avaliacao.setData( avaliacaoListagemDTO.getData() );
 
         return avaliacao;
@@ -67,11 +68,16 @@ public class AvaliacaoListagemMapperImpl implements AvaliacaoListagemMapper {
 
         AvaliacaoListagemDTO avaliacaoListagemDTO = new AvaliacaoListagemDTO();
 
+        String nome = avaliacaoDisciplinaNome( avaliacao );
+        if ( nome != null ) {
+            avaliacaoListagemDTO.setNomeDisciplina( nome );
+        }
         Integer id = avaliacaoDisciplinaId( avaliacao );
         if ( id != null ) {
             avaliacaoListagemDTO.setIdDisciplina( id );
         }
         avaliacaoListagemDTO.setId( avaliacao.getId() );
+        avaliacaoListagemDTO.setNome( avaliacao.getNome() );
         avaliacaoListagemDTO.setData( avaliacao.getData() );
 
         return avaliacaoListagemDTO;
@@ -85,8 +91,24 @@ public class AvaliacaoListagemMapperImpl implements AvaliacaoListagemMapper {
         Disciplina disciplina = new Disciplina();
 
         disciplina.setId( avaliacaoListagemDTO.getIdDisciplina() );
+        disciplina.setNome( avaliacaoListagemDTO.getNomeDisciplina() );
 
         return disciplina;
+    }
+
+    private String avaliacaoDisciplinaNome(Avaliacao avaliacao) {
+        if ( avaliacao == null ) {
+            return null;
+        }
+        Disciplina disciplina = avaliacao.getDisciplina();
+        if ( disciplina == null ) {
+            return null;
+        }
+        String nome = disciplina.getNome();
+        if ( nome == null ) {
+            return null;
+        }
+        return nome;
     }
 
     private Integer avaliacaoDisciplinaId(Avaliacao avaliacao) {

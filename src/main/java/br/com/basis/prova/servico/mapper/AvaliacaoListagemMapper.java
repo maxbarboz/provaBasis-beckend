@@ -10,10 +10,12 @@ public interface AvaliacaoListagemMapper extends EntityMapper<AvaliacaoListagemD
 
     @Override
     @Mapping(source = "idDisciplina", target = "disciplina.id")
+    @Mapping(source = "nomeDisciplina", target = "disciplina.nome")
     Avaliacao toEntity(AvaliacaoListagemDTO avaliacaoListagemDTO);
 
     @Override
     @Mapping(source = "disciplina.id", target = "idDisciplina")
+    @Mapping(source = "disciplina.nome", target = "nomeDisciplina")
     AvaliacaoListagemDTO toDto(Avaliacao avaliacao);
 }
 
