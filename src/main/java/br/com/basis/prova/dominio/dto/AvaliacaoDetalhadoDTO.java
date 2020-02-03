@@ -4,25 +4,25 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 public class AvaliacaoDetalhadoDTO {
 
-    @NotNull
     private Integer id;
 
     @NotNull
-    private String nome;
+    private Double nota;
 
     @NotNull
     private LocalDate data;
 
-    @ManyToMany
-    private List<NotaAvaliacaoDTO> notaAvaliacao;
+    @NotNull
+    private DisciplinaListagemDTO disciplina;
+
+    @NotNull
+    private AlunoListagemDTO aluno;
 }

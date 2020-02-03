@@ -1,15 +1,12 @@
 package br.com.basis.prova.dominio.dto;
 
-import br.com.basis.prova.dominio.Disciplina;
+import br.com.basis.prova.dominio.Aluno;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -19,14 +16,16 @@ public class AvaliacaoDTO {
     private Integer id;
 
     @NotNull
-    private String nome;
+    private Double nota;
 
     @NotNull
     private LocalDate data;
 
     @NotNull
-    private Disciplina disciplina;
+    private AlunoListagemDTO Aluno;
 
-    private List<NotaAvaliacaoDTO> notaAvaliacao;
+    @NotNull
+    private DisciplinaListagemDTO disciplina;
+
 
 }

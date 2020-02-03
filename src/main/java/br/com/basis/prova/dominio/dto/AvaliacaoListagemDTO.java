@@ -12,18 +12,11 @@ import java.time.LocalDate;
 @Setter
 public class AvaliacaoListagemDTO {
 
-    @NotNull
     private Integer id;
 
     @NotNull
-    private String nome;
+    private Double nota;
 
     @NotNull
     private LocalDate data;
-
-    @NotNull
-    private Integer idDisciplina;
-
-    @NotNull
-    private String nomeDisciplina;
 }

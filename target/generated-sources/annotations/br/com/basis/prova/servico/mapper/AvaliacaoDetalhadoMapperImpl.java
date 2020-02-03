@@ -1,9 +1,11 @@
 package br.com.basis.prova.servico.mapper;
 
+import br.com.basis.prova.dominio.Aluno;
 import br.com.basis.prova.dominio.Avaliacao;
-import br.com.basis.prova.dominio.NotaAvaliacao;
+import br.com.basis.prova.dominio.Disciplina;
+import br.com.basis.prova.dominio.dto.AlunoListagemDTO;
 import br.com.basis.prova.dominio.dto.AvaliacaoDetalhadoDTO;
-import br.com.basis.prova.dominio.dto.NotaAvaliacaoDTO;
+import br.com.basis.prova.dominio.dto.DisciplinaListagemDTO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Generated;
@@ -11,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-01-30T22:28:09-0300",
+    date = "2020-02-03T07:13:45-0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.5 (JetBrains s.r.o)"
 )
 @Component
@@ -26,9 +28,10 @@ public class AvaliacaoDetalhadoMapperImpl implements AvaliacaoDetalhadoMapper {
         Avaliacao avaliacao = new Avaliacao();
 
         avaliacao.setId( dto.getId() );
-        avaliacao.setNome( dto.getNome() );
+        avaliacao.setNota( dto.getNota() );
         avaliacao.setData( dto.getData() );
-        avaliacao.setNotaAvaliacao( notaAvaliacaoDTOListToNotaAvaliacaoList( dto.getNotaAvaliacao() ) );
+        avaliacao.setDisciplina( disciplinaListagemDTOToDisciplina( dto.getDisciplina() ) );
+        avaliacao.setAluno( alunoListagemDTOToAluno( dto.getAluno() ) );
 
         return avaliacao;
     }
@@ -42,9 +45,10 @@ public class AvaliacaoDetalhadoMapperImpl implements AvaliacaoDetalhadoMapper {
         AvaliacaoDetalhadoDTO avaliacaoDetalhadoDTO = new AvaliacaoDetalhadoDTO();
 
         avaliacaoDetalhadoDTO.setId( entity.getId() );
-        avaliacaoDetalhadoDTO.setNome( entity.getNome() );
+        avaliacaoDetalhadoDTO.setNota( entity.getNota() );
         avaliacaoDetalhadoDTO.setData( entity.getData() );
-        avaliacaoDetalhadoDTO.setNotaAvaliacao( notaAvaliacaoListToNotaAvaliacaoDTOList( entity.getNotaAvaliacao() ) );
+        avaliacaoDetalhadoDTO.setDisciplina( disciplinaToDisciplinaListagemDTO( entity.getDisciplina() ) );
+        avaliacaoDetalhadoDTO.setAluno( alunoToAlunoListagemDTO( entity.getAluno() ) );
 
         return avaliacaoDetalhadoDTO;
     }
@@ -77,55 +81,65 @@ public class AvaliacaoDetalhadoMapperImpl implements AvaliacaoDetalhadoMapper {
         return list;
     }
 
-    protected NotaAvaliacao notaAvaliacaoDTOToNotaAvaliacao(NotaAvaliacaoDTO notaAvaliacaoDTO) {
-        if ( notaAvaliacaoDTO == null ) {
+    protected Disciplina disciplinaListagemDTOToDisciplina(DisciplinaListagemDTO disciplinaListagemDTO) {
+        if ( disciplinaListagemDTO == null ) {
             return null;
         }
 
-        NotaAvaliacao notaAvaliacao = new NotaAvaliacao();
+        Disciplina disciplina = new Disciplina();
 
-        notaAvaliacao.setId( notaAvaliacaoDTO.getId() );
-        notaAvaliacao.setNota( notaAvaliacaoDTO.getNota() );
+        disciplina.setId( disciplinaListagemDTO.getId() );
+        disciplina.setNome( disciplinaListagemDTO.getNome() );
+        disciplina.setDescricao( disciplinaListagemDTO.getDescricao() );
+        disciplina.setCargaHoraria( disciplinaListagemDTO.getCargaHoraria() );
+        disciplina.setAtiva( disciplinaListagemDTO.getAtiva() );
 
-        return notaAvaliacao;
+        return disciplina;
     }
 
-    protected List<NotaAvaliacao> notaAvaliacaoDTOListToNotaAvaliacaoList(List<NotaAvaliacaoDTO> list) {
-        if ( list == null ) {
+    protected Aluno alunoListagemDTOToAluno(AlunoListagemDTO alunoListagemDTO) {
+        if ( alunoListagemDTO == null ) {
             return null;
         }
 
-        List<NotaAvaliacao> list1 = new ArrayList<NotaAvaliacao>( list.size() );
-        for ( NotaAvaliacaoDTO notaAvaliacaoDTO : list ) {
-            list1.add( notaAvaliacaoDTOToNotaAvaliacao( notaAvaliacaoDTO ) );
-        }
+        Aluno aluno = new Aluno();
 
-        return list1;
+        aluno.setId( alunoListagemDTO.getId() );
+        aluno.setMatricula( alunoListagemDTO.getMatricula() );
+        aluno.setNome( alunoListagemDTO.getNome() );
+        aluno.setDataNascimento( alunoListagemDTO.getDataNascimento() );
+
+        return aluno;
     }
 
-    protected NotaAvaliacaoDTO notaAvaliacaoToNotaAvaliacaoDTO(NotaAvaliacao notaAvaliacao) {
-        if ( notaAvaliacao == null ) {
+    protected DisciplinaListagemDTO disciplinaToDisciplinaListagemDTO(Disciplina disciplina) {
+        if ( disciplina == null ) {
             return null;
         }
 
-        NotaAvaliacaoDTO notaAvaliacaoDTO = new NotaAvaliacaoDTO();
+        DisciplinaListagemDTO disciplinaListagemDTO = new DisciplinaListagemDTO();
 
-        notaAvaliacaoDTO.setId( notaAvaliacao.getId() );
-        notaAvaliacaoDTO.setNota( notaAvaliacao.getNota() );
+        disciplinaListagemDTO.setId( disciplina.getId() );
+        disciplinaListagemDTO.setNome( disciplina.getNome() );
+        disciplinaListagemDTO.setCargaHoraria( disciplina.getCargaHoraria() );
+        disciplinaListagemDTO.setAtiva( disciplina.getAtiva() );
+        disciplinaListagemDTO.setDescricao( disciplina.getDescricao() );
 
-        return notaAvaliacaoDTO;
+        return disciplinaListagemDTO;
     }
 
-    protected List<NotaAvaliacaoDTO> notaAvaliacaoListToNotaAvaliacaoDTOList(List<NotaAvaliacao> list) {
-        if ( list == null ) {
+    protected AlunoListagemDTO alunoToAlunoListagemDTO(Aluno aluno) {
+        if ( aluno == null ) {
             return null;
         }
 
-        List<NotaAvaliacaoDTO> list1 = new ArrayList<NotaAvaliacaoDTO>( list.size() );
-        for ( NotaAvaliacao notaAvaliacao : list ) {
-            list1.add( notaAvaliacaoToNotaAvaliacaoDTO( notaAvaliacao ) );
-        }
+        AlunoListagemDTO alunoListagemDTO = new AlunoListagemDTO();
 
-        return list1;
+        alunoListagemDTO.setId( aluno.getId() );
+        alunoListagemDTO.setNome( aluno.getNome() );
+        alunoListagemDTO.setMatricula( aluno.getMatricula() );
+        alunoListagemDTO.setDataNascimento( aluno.getDataNascimento() );
+
+        return alunoListagemDTO;
     }
 }

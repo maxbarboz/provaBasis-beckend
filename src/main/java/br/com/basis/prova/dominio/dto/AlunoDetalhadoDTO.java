@@ -26,4 +26,6 @@ public class AlunoDetalhadoDTO { // DTO usado para a consulta detalhada de um al
 
     private List<DisciplinaListagemDTO> disciplinas = new ArrayList<>();
 
+    private List<AvaliacaoDetalhadoDTO> avaliacoes = new ArrayList<>();
+
 }

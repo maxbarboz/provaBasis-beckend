@@ -55,5 +55,8 @@ public class Aluno {
             inverseJoinColumns= @JoinColumn(name = "ID_DISCIPLINA", referencedColumnName = "ID"))
     private List<Disciplina> disciplinas = new ArrayList<>();
 
+    @OneToMany(mappedBy = "aluno", orphanRemoval = true)
+    private List<Avaliacao> avaliacoes = new ArrayList<>();
+
 }
 

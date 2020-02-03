@@ -1,7 +1,6 @@
 package br.com.basis.prova.servico.mapper;
 
 import br.com.basis.prova.dominio.Avaliacao;
-import br.com.basis.prova.dominio.Disciplina;
 import br.com.basis.prova.dominio.dto.AvaliacaoListagemDTO;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +9,41 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2020-01-30T22:28:09-0300",
+    date = "2020-02-03T07:13:46-0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 11.0.5 (JetBrains s.r.o)"
 )
 @Component
 public class AvaliacaoListagemMapperImpl implements AvaliacaoListagemMapper {
+
+    @Override
+    public Avaliacao toEntity(AvaliacaoListagemDTO dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        Avaliacao avaliacao = new Avaliacao();
+
+        avaliacao.setId( dto.getId() );
+        avaliacao.setNota( dto.getNota() );
+        avaliacao.setData( dto.getData() );
+
+        return avaliacao;
+    }
+
+    @Override
+    public AvaliacaoListagemDTO toDto(Avaliacao entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        AvaliacaoListagemDTO avaliacaoListagemDTO = new AvaliacaoListagemDTO();
+
+        avaliacaoListagemDTO.setId( entity.getId() );
+        avaliacaoListagemDTO.setNota( entity.getNota() );
+        avaliacaoListagemDTO.setData( entity.getData() );
+
+        return avaliacaoListagemDTO;
+    }
 
     @Override
     public List<Avaliacao> toEntity(List<AvaliacaoListagemDTO> dtoList) {
@@ -42,87 +71,5 @@ public class AvaliacaoListagemMapperImpl implements AvaliacaoListagemMapper {
         }
 
         return list;
-    }
-
-    @Override
-    public Avaliacao toEntity(AvaliacaoListagemDTO avaliacaoListagemDTO) {
-        if ( avaliacaoListagemDTO == null ) {
-            return null;
-        }
-
-        Avaliacao avaliacao = new Avaliacao();
-
-        avaliacao.setDisciplina( avaliacaoListagemDTOToDisciplina( avaliacaoListagemDTO ) );
-        avaliacao.setId( avaliacaoListagemDTO.getId() );
-        avaliacao.setNome( avaliacaoListagemDTO.getNome() );
-        avaliacao.setData( avaliacaoListagemDTO.getData() );
-
-        return avaliacao;
-    }
-
-    @Override
-    public AvaliacaoListagemDTO toDto(Avaliacao avaliacao) {
-        if ( avaliacao == null ) {
-            return null;
-        }
-
-        AvaliacaoListagemDTO avaliacaoListagemDTO = new AvaliacaoListagemDTO();
-
-        String nome = avaliacaoDisciplinaNome( avaliacao );
-        if ( nome != null ) {
-            avaliacaoListagemDTO.setNomeDisciplina( nome );
-        }
-        Integer id = avaliacaoDisciplinaId( avaliacao );
-        if ( id != null ) {
-            avaliacaoListagemDTO.setIdDisciplina( id );
-        }
-        avaliacaoListagemDTO.setId( avaliacao.getId() );
-        avaliacaoListagemDTO.setNome( avaliacao.getNome() );
-        avaliacaoListagemDTO.setData( avaliacao.getData() );
-
-        return avaliacaoListagemDTO;
-    }
-
-    protected Disciplina avaliacaoListagemDTOToDisciplina(AvaliacaoListagemDTO avaliacaoListagemDTO) {
-        if ( avaliacaoListagemDTO == null ) {
-            return null;
-        }
-
-        Disciplina disciplina = new Disciplina();
-
-        disciplina.setId( avaliacaoListagemDTO.getIdDisciplina() );
-        disciplina.setNome( avaliacaoListagemDTO.getNomeDisciplina() );
-
-        return disciplina;
-    }
-
-    private String avaliacaoDisciplinaNome(Avaliacao avaliacao) {
-        if ( avaliacao == null ) {
-            return null;
-        }
-        Disciplina disciplina = avaliacao.getDisciplina();
-        if ( disciplina == null ) {
-            return null;
-        }
-        String nome = disciplina.getNome();
-        if ( nome == null ) {
-            return null;
-        }
-        return nome;
-    }
-
-    private Integer avaliacaoDisciplinaId(Avaliacao avaliacao) {
-        if ( avaliacao == null ) {
-            return null;
-        }
-        Disciplina disciplina = avaliacao.getDisciplina();
-        if ( disciplina == null ) {
-            return null;
-        }
-        Integer id = disciplina.getId();
-        if ( id == null ) {
-            return null;
-        }
-        return id;
     }
 }

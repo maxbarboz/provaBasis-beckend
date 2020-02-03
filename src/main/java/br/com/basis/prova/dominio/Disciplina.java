@@ -51,4 +51,6 @@ public class Disciplina {
 	@ManyToMany(mappedBy = "disciplinas", cascade = CascadeType.ALL)
 	private List<Aluno> alunos = new ArrayList<>();
 
+	@OneToMany(mappedBy = "disciplina", orphanRemoval = true)
+	private List<Avaliacao> avaliacoes = new ArrayList<>();
 }

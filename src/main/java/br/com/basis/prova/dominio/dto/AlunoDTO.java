@@ -37,5 +37,7 @@ public class AlunoDTO { // DTO usado para salvar e editar um aluno
     private LocalDate dataNascimento;
 
     private List<DisciplinaListagemDTO> disciplinas = new ArrayList<>();
-    
+
+    private List<AvaliacaoDetalhadoDTO> avaliacoes = new ArrayList<>();
+
 }

@@ -1,5 +1,6 @@
 package br.com.basis.prova.dominio;
 
+import br.com.basis.prova.servico.AlunoServico;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,19 +25,20 @@ public class Avaliacao {
     private Integer id;
 
     @NotNull
-    @Column(name= "NOME", nullable = false)
-    private String nome;
+    @Column(name= "NOTA", nullable = false)
+    private Double nota;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @Column(name = "DATA", nullable = false)
     @NotNull
     private LocalDate data;
 
-    @NotNull
-    @JoinColumn(name = "ID_DISCIPLINA", referencedColumnName = "ID")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name= "ID_DISCIPLINA", referencedColumnName = "ID")
+    @ManyToOne( optional = false, fetch = FetchType.LAZY )
     private Disciplina disciplina;
 
-    @OneToMany(mappedBy = "avaliacao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List <NotaAvaliacao> notaAvaliacao = new ArrayList<>();
+    @JoinColumn(name= "ID_ALUNO", referencedColumnName = "ID")
+    @ManyToOne( optional = false, fetch = FetchType.LAZY )
+    private Aluno aluno;
+
 }
