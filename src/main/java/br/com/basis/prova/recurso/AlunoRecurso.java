@@ -50,7 +50,7 @@ public class AlunoRecurso {
     }
 
     @GetMapping("/detalhes/{id}")
-    public ResponseEntity<AlunoDetalhadoDTO> detalhar(@PathVariable("id") Integer id) {
+    public ResponseEntity<AlunoDTO> detalhar(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(alunoServico.detalhar(id));
     }
 

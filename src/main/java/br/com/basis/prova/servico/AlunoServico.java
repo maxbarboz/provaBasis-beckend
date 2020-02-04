@@ -53,12 +53,12 @@ public class AlunoServico {
         return new ArrayList<>(alunosComIdade);
     }
 
-    public AlunoDetalhadoDTO detalhar(Integer id) {
+    public AlunoDTO detalhar(Integer id) {
 
         Aluno aluno = alunoRepositorio.findById(id).orElseThrow(
                 () -> new RegistroNaoEncontradoException("Registro não encontrado")
         );
-        return alunoDetalhadoMapper.toDto(aluno);
+        return alunoMapper.toDto(aluno);
     }
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////

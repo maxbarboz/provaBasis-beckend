@@ -6,6 +6,7 @@ import br.com.basis.prova.dominio.dto.AvaliacaoDetalhadoDTO;
 import br.com.basis.prova.dominio.dto.AvaliacaoListagemDTO;
 import br.com.basis.prova.repositorio.AvaliacaoRepositorio;
 import br.com.basis.prova.servico.exception.RegistroNaoEncontradoException;
+import br.com.basis.prova.servico.exception.RegraNegocioException;
 import br.com.basis.prova.servico.mapper.AvaliacaoDetalhadoMapper;
 import br.com.basis.prova.servico.mapper.AvaliacaoListagemMapper;
 import br.com.basis.prova.servico.mapper.AvaliacaoMapper;
