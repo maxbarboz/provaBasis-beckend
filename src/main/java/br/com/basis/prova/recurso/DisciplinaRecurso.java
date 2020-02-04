@@ -49,7 +49,7 @@ public class DisciplinaRecurso {
     }
 
     @GetMapping("/detalhes/{id}")
-    public ResponseEntity<DisciplinaDetalhadaDTO> detalhar(@PathVariable("id") Integer id) {
+    public ResponseEntity<DisciplinaDTO> detalhar(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(disciplinaServico.detalhar(id));
     }
 

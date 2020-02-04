@@ -60,11 +60,11 @@ public class DisciplinaServico {
         return new ArrayList<>(disciplinaListagemMapper.toDto(disciplinas));
     }
 
-    public DisciplinaDetalhadaDTO detalhar(Integer id) {
+    public DisciplinaDTO detalhar(Integer id) {
         Disciplina disciplina = disciplinaRepositorio.findById(id).orElseThrow(
                 () -> new RegistroNaoEncontradoException("ID inexistente")
         );
-        return disciplinaDetalhadaMapper.toDto(disciplina);
+        return disciplinaMapper.toDto(disciplina);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

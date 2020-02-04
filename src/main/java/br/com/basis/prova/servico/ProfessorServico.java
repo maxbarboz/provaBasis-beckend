@@ -57,12 +57,12 @@ public class ProfessorServico {
 
     }
 
-    public ProfessorDetalhadoDTO detalhar(Integer id) {
+    public ProfessorDTO detalhar(Integer id) {
 
         Professor professor = professorRepositorio.findById(id).orElseThrow(
                 () -> new RegistroNaoEncontradoException("Registro não encontrado")
         );
-        return professorDetalhadoMapper.toDto(professor);
+        return professorMapper.toDto(professor);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
