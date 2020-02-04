@@ -33,10 +33,12 @@ public class Avaliacao {
     @NotNull
     private LocalDate data;
 
+    @NotNull
     @JoinColumn(name= "ID_DISCIPLINA", referencedColumnName = "ID")
     @ManyToOne( optional = false, fetch = FetchType.LAZY )
     private Disciplina disciplina;
 
+    @NotNull
     @JoinColumn(name= "ID_ALUNO", referencedColumnName = "ID")
     @ManyToOne( optional = false, fetch = FetchType.LAZY )
     private Aluno aluno;
