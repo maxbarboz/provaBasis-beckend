@@ -7,6 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -25,5 +27,5 @@ public class DisciplinaDetalhadaDTO {
 
     @NotNull
     private ProfessorDTO professor;
-    
+
 }

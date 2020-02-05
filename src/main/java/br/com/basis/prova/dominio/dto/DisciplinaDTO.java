@@ -9,6 +9,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -34,4 +37,5 @@ public class DisciplinaDTO {
     @NotNull( message = "É necessario ter um professor vinculado a disciplina.")
     private ProfessorDTO professor;
 
+    private List<AlunoListagemDTO> alunos = new ArrayList<>();
 }
