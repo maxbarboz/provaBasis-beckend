@@ -5,6 +5,7 @@ import br.com.basis.prova.servico.AvaliacaoServico;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -23,13 +24,13 @@ public class AvaliacaoRecurso {
     }
 
     @PostMapping
-    public ResponseEntity<AvaliacaoDTO> salvar(@RequestBody AvaliacaoDTO avaliacaoDTO) throws URISyntaxException {
+    public ResponseEntity<AvaliacaoDTO> salvar(@Valid @RequestBody AvaliacaoDTO avaliacaoDTO) throws URISyntaxException {
         AvaliacaoDTO result= avaliacaoServico.salvar(avaliacaoDTO);
         return ResponseEntity.created(new URI(API_AVALIACOES + "/" + result.getId())).body(result);
     }
 
     @PutMapping
-    public ResponseEntity<AvaliacaoDTO> editar(@RequestBody AvaliacaoDTO avaliacaoDTO) throws URISyntaxException {
+    public ResponseEntity<AvaliacaoDTO> editar(@Valid @RequestBody AvaliacaoDTO avaliacaoDTO) throws URISyntaxException {
         AvaliacaoDTO result= avaliacaoServico.salvar(avaliacaoDTO);
         return ResponseEntity.ok(result);
     }

@@ -1,6 +1,5 @@
 package br.com.basis.prova.dominio.dto;
 
-import br.com.basis.prova.dominio.Aluno;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

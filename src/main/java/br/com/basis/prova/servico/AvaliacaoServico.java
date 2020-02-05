@@ -10,7 +10,6 @@ import br.com.basis.prova.servico.exception.RegraNegocioException;
 import br.com.basis.prova.servico.mapper.AvaliacaoDetalhadoMapper;
 import br.com.basis.prova.servico.mapper.AvaliacaoListagemMapper;
 import br.com.basis.prova.servico.mapper.AvaliacaoMapper;
-import liquibase.pro.packaged.I;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,7 +20,7 @@ import java.util.List;
 @Transactional
 public class AvaliacaoServico {
 
-    private final double MAX_NOTA = 99.99;
+    private final Integer MAX_NOTA = 100;
     private final Integer MAX_NOTA_LENGTH = 5;
 
     private AvaliacaoMapper avaliacaoMapper;
@@ -64,9 +63,10 @@ public class AvaliacaoServico {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     private void verificaNota(AvaliacaoDTO avaliacaoDTO) {
         if( avaliacaoDTO.getNota() > MAX_NOTA ) {
-            throw new RegraNegocioException("Nota inválida, informe uma nota menor ou igual a " + MAX_NOTA + ".");
+            throw new RegraNegocioException("Nota inválida, informe uma nota menor ou igual a " + MAX_NOTA );
         }else if( avaliacaoDTO.getNota().toString().length() > MAX_NOTA_LENGTH ){
-            throw new RegraNegocioException("Nota inválida, informe uma nota com até " + ( MAX_NOTA_LENGTH - 1 ) + " digítos, mais o caracter separador(vírgula ou ponto)." );
+            throw new RegraNegocioException("Nota inválida, informe uma nota com até " + ( MAX_NOTA_LENGTH - 1 ) +
+                    " digítos, mais o caracter separador(vírgula ou ponto)." );
         }
     }
 

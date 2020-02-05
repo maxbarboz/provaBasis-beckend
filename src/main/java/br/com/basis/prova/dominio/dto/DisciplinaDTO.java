@@ -5,7 +5,6 @@ import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import br.com.basis.prova.dominio.Professor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
