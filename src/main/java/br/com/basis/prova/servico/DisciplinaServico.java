@@ -38,6 +38,9 @@ public class DisciplinaServico {
         if(disciplina.getProfessor() == null){
             throw new RegraNegocioException("Disciplina precisa ter um professor");
         }
+        if(disciplina.getCargaHoraria() <= 0){
+            throw new RegraNegocioException("Uma disciplina não pode ter carga horária nula");
+        }
 
         verificaNomeDisciplina(disciplina);
         return disciplinaMapper.toDto(disciplinaRepositorio.save(disciplina));
