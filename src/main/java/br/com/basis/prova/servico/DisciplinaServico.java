@@ -2,6 +2,7 @@ package br.com.basis.prova.servico;
 
 import br.com.basis.prova.dominio.Disciplina;
 import br.com.basis.prova.dominio.dto.DisciplinaDTO;
+import br.com.basis.prova.dominio.dto.DisciplinaDetalhadaDTO;
 import br.com.basis.prova.dominio.dto.DisciplinaListagemDTO;
 import br.com.basis.prova.repositorio.DisciplinaRepositorio;
 import br.com.basis.prova.servico.exception.RegistroNaoEncontradoException;
@@ -65,6 +66,14 @@ public class DisciplinaServico {
         );
         return disciplinaMapper.toDto(disciplina);
     }
+
+    public DisciplinaDetalhadaDTO detalharAvaliacao(Integer id) {
+        Disciplina disciplina = disciplinaRepositorio.findById(id).orElseThrow(
+                () -> new RegistroNaoEncontradoException("ID inexistente")
+        );
+        return disciplinaDetalhadaMapper.toDto(disciplina);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -3,6 +3,7 @@ package br.com.basis.prova.dominio.dto;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Getter;
@@ -37,5 +38,4 @@ public class DisciplinaDTO {
     @NotNull( message = "É necessario ter um professor vinculado a disciplina.")
     private ProfessorDTO professor;
 
-    private List<AlunoListagemDTO> alunos = new ArrayList<>();
 }

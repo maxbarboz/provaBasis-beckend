@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 public class DisciplinaDetalhadaDTO {
-	
+
     private Integer id;
 
     @NotNull
@@ -22,10 +22,19 @@ public class DisciplinaDetalhadaDTO {
     private String nome;
 
     @NotNull
+    @Size(min = 1, max = 200)
+    private String descricao;
+
+    @NotNull
     @DateTimeFormat(pattern = "HH:mm")
     private Integer cargaHoraria;
 
     @NotNull
+    private Integer ativa;
+
+    @NotNull( message = "É necessario ter um professor vinculado a disciplina.")
     private ProfessorDTO professor;
+
+    private List<AlunoListagemDTO> alunos = new ArrayList<>();
 
 }

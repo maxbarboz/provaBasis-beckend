@@ -1,6 +1,7 @@
 package br.com.basis.prova.recurso;
 
 import br.com.basis.prova.dominio.dto.DisciplinaDTO;
+import br.com.basis.prova.dominio.dto.DisciplinaDetalhadaDTO;
 import br.com.basis.prova.dominio.dto.DisciplinaListagemDTO;
 import br.com.basis.prova.servico.DisciplinaServico;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +51,11 @@ public class DisciplinaRecurso {
     @GetMapping("/detalhes/{id}")
     public ResponseEntity<DisciplinaDTO> detalhar(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(disciplinaServico.detalhar(id));
+    }
+
+    @GetMapping("/avaliacao/detalhes/{id}")
+    public ResponseEntity<DisciplinaDetalhadaDTO> detalharAvaliacao(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(disciplinaServico.detalharAvaliacao(id));
     }
 
 }
